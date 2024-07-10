@@ -1,3 +1,9 @@
+This repository is a copy of [zxzhaixiang/darknet-nnpack](https://github.com/zxzhaixiang/darknet-nnpack)
+examples/detector.c:622 - printing boxes
+./darknet detector test cfg/coco.data cfg/yolov3-tiny.cfg yolov3-tiny.weights artwork/person.jpg
+~ 3 times faster that a normal darknet
+~ opencv integration is too old, not working
+
 This repository is forked from https://github.com/digitalbrain79/darknet-nnpack/
 
 A few changes had been made to make it work right out of box on Raspberry Pi 3 B

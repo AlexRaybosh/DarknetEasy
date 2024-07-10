@@ -3,7 +3,6 @@ build.ninja
 
 # Build objects and artifacts
 deps/
-build/
 build-*/
 bin/
 lib/

@@ -11,7 +11,13 @@ DARKNET_EXTRA_OPT:=
 ifeq "$(ARCH)" "aarch64"
 NNPACK_BACKEND:=neon
 BCONC:=4
-DARKNET_EXTRA_OPT:="-mtune=cortex-a76 -ftree-vectorize"
+DARKNET_EXTRA_OPT:="-mtune=cortex-a76 -ftree-vectorize -Ofast"
+endif
+
+ifeq "$(ARCH)" "x86_64"
+NNPACK_BACKEND:=auto
+BCONC:=4
+DARKNET_EXTRA_OPT:="-mtune=native -ftree-vectorize -Ofast"
 endif
 
  

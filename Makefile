@@ -12,7 +12,7 @@ ifeq "$(ARCH)" "aarch64"
 NNPACK_BACKEND:=neon
 #NNPACK_BACKEND:=psimd
 BCONC:=4
-DARKNET_EXTRA_OPT:="-mtune=native -ftree-vectorize -Ofast -fomit-frame-pointer"
+DARKNET_EXTRA_OPT:="-mtune=native -ftree-vectorize -Ofast -fomit-frame-pointer  -march=armv8-a+simd -mcpu=cortex-a72+simd "
 endif
 
 ifeq "$(ARCH)" "x86_64"

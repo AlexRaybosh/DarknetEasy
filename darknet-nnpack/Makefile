@@ -33,13 +33,13 @@ CC=gcc
 NVCC=nvcc 
 AR=ar
 ARFLAGS=rcs
-OPTS=-Ofast
+OPTS=
 #OPTS=-O3
 LDFLAGS= -lm -pthread  -L$(PREBUILD) -lnnpack -lnnpack_reference_layers -lcpuinfo -lpthreadpool
 COMMON= -Iinclude/ -Isrc/ -I$(ROOT)/include
 #CFLAGS=-Wall -Wno-unknown-pragmas -Wfatal-errors -fPIC
 #CFLAGS=-Wall -Wno-unknown-pragmas -Wfatal-errors -fPIC -march=native -mfpmath=sse
-CFLAGS=-Wall -Wno-unknown-pragmas -Wfatal-errors -fPIC -march=native $(DARKNET_EXTRA_OPT) -std=gnu11
+CFLAGS=-Wall -Wno-unknown-pragmas -Wfatal-errors -fPIC $(DARKNET_EXTRA_OPT) -std=gnu11
 #CFLAGS=-Wall -Wno-unknown-pragmas -Wfatal-errors -fPIC -march=native -mtune=cortex-a76 -funsafe-math-optimizations -ftree-vectorize -ffast-math -funsafe-math-optimizations
 
 ifeq ($(OPENMP), 1) 

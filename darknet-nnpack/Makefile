@@ -8,7 +8,13 @@ OPENMP=0
 DEBUG=0
 QPU_GEMM=0
 
-ARCH= -gencode arch=compute_30,code=sm_30 \
+
+$(info MY ROOT $(ROOT))
+$(info MY PREBUILD $(PREBUILD))
+$(info MY DARKNET_EXTRA_OPT $(DARKNET_EXTRA_OPT))
+
+
+#ARCH= -gencode arch=compute_30,code=sm_30 \
       -gencode arch=compute_35,code=sm_35 \
       -gencode arch=compute_50,code=[sm_50,compute_50] \
       -gencode arch=compute_52,code=[sm_52,compute_52]
@@ -29,11 +35,11 @@ AR=ar
 ARFLAGS=rcs
 OPTS=-Ofast
 #OPTS=-O3
-LDFLAGS= -lm -pthread  -lnnpack -lnnpack_reference_layers -lcpuinfo -lpthreadpool
-COMMON= -Iinclude/ -Isrc/
+LDFLAGS= -lm -pthread  -L$(PREBUILD) -lnnpack -lnnpack_reference_layers -lcpuinfo -lpthreadpool
+COMMON= -Iinclude/ -Isrc/ -I$(ROOT)/include
 #CFLAGS=-Wall -Wno-unknown-pragmas -Wfatal-errors -fPIC
 #CFLAGS=-Wall -Wno-unknown-pragmas -Wfatal-errors -fPIC -march=native -mfpmath=sse
-CFLAGS=-Wall -Wno-unknown-pragmas -Wfatal-errors -fPIC -march=native -mtune=cortex-a76 -ftree-vectorize -std=gnu11
+CFLAGS=-Wall -Wno-unknown-pragmas -Wfatal-errors -fPIC -march=native $(DARKNET_EXTRA_OPT) -std=gnu11
 #CFLAGS=-Wall -Wno-unknown-pragmas -Wfatal-errors -fPIC -march=native -mtune=cortex-a76 -funsafe-math-optimizations -ftree-vectorize -ffast-math -funsafe-math-optimizations
 
 ifeq ($(OPENMP), 1) 
@@ -112,7 +118,7 @@ $(ALIB): $(OBJS)
 $(SLIB): $(OBJS)
 	$(CC) $(CFLAGS) -shared $^ -o $@
 
-$(OBJDIR)%.o: %.c $(DEPS)
+$(OBJDIR)%.o: %.c $(DEPS) $(ROOT)/Makefile Makefile
 	$(CC) $(COMMON) $(CFLAGS) -c $< -o $@
 
 $(OBJDIR)%.o: %.cu $(DEPS)

@@ -1,1 +1,4 @@
-.build
+build/
+NNPACK-darknet/deps/*/.git*
+NNPACK-darknet/deps/googletest/googletest/.gitignore
+*.sw*

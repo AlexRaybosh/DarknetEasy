@@ -63,23 +63,23 @@ static pthread_once_t hwinfo_init_control = PTHREAD_ONCE_INIT;
 	static void init_static_hwinfo(void) {
 		//_exit(1);
 		nnp_hwinfo.cache.l1 = (struct cache_info) {
-			.size = 16 * 1024,
+			.size = 64 * 1024,
 			.associativity = 4,
 			.threads = 4,
 			.inclusive = false,
 		};
 		nnp_hwinfo.cache.l2 = (struct cache_info) {
-			.size = 128 * 1024,
+			.size = 512 * 1024,
 			.associativity = 4,
 			.threads = 4,
 			.inclusive = false,
 		};
 		nnp_hwinfo.cache.l3 = (struct cache_info) {
-			//.size = 2 * 1024 * 1024,
-			.size = 128 * 1024,
+			.size = 2 * 1024 * 1024,
+			//.size = 128 * 1024,
 			.associativity = 4,
 			.threads = 4,
-			.inclusive = false,
+			.inclusive = true,
 		};
 	}
 #else

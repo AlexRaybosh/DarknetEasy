@@ -112,13 +112,13 @@ all: obj  results $(SLIB) $(ALIB) $(EXEC)
 $(EXEC): $(EXECOBJ) $(ALIB)
 	$(CC) $(COMMON) $(CFLAGS) $^ -o $@ $(LDFLAGS) $(ALIB)
 
-$(ALIB): $(OBJS)
+$(ALIB): $(OBJS) $(PREBUILD)/libnnpack.a $(ROOT)/Makefile Makefile
 	$(AR) $(ARFLAGS) $@ $^
 
 $(SLIB): $(OBJS)
 	$(CC) $(CFLAGS) -shared $^ -o $@
 
-$(OBJDIR)%.o: %.c $(DEPS) $(ROOT)/Makefile Makefile
+$(OBJDIR)%.o: %.c $(DEPS) $(ROOT)/Makefile Makefile 
 	$(CC) $(COMMON) $(CFLAGS) -c $< -o $@
 
 $(OBJDIR)%.o: %.cu $(DEPS)

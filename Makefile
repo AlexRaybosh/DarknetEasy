@@ -10,14 +10,16 @@ NNPACK_BACKEND:=auto
 DARKNET_EXTRA_OPT:=
 ifeq "$(ARCH)" "aarch64"
 NNPACK_BACKEND:=neon
+#NNPACK_BACKEND:=psimd
 BCONC:=4
-DARKNET_EXTRA_OPT:="-mtune=cortex-a76 -ftree-vectorize -Ofast"
+DARKNET_EXTRA_OPT:="-mtune=native -ftree-vectorize -Ofast -fomit-frame-pointer"
 endif
 
 ifeq "$(ARCH)" "x86_64"
 NNPACK_BACKEND:=auto
 BCONC:=4
-DARKNET_EXTRA_OPT:="-mtune=native -ftree-vectorize -Ofast"
+DARKNET_EXTRA_OPT:="-mtune=native -ftree-vectorize -Ofast -fomit-frame-pointer"
+
 endif
 
  
@@ -58,7 +60,7 @@ NNPACK:
 	@cp $(NNPACK_SRC)/include/nnpack.h $(INCLUDE)
 	@cp $(NNPACK_SRC)/deps/pthreadpool/include/pthreadpool.h $(INCLUDE)
 	@mkdir -p $(POSTERITY)
-	@cd $(NNPACK_BUILDDIR) && tar -czvf $(POSTERITY)/nnpack-build-last-success.tgz . # hence cmake shit will go bad at some point
+	@cd $(NNPACK_BUILDDIR) && tar -czf $(POSTERITY)/nnpack-build-last-success.tgz . # hence cmake shit will go bad at some point
 
 
 $(PREBUILD)/libnnpack.a:
